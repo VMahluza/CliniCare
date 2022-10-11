@@ -32,7 +32,6 @@
                 if ($email === $row['email'] && password_verify($password, $row['password'])) {
 
                     try {
-
                             //if the user registers here we want them to click something to confirm
                             $_SESSION['user']['id'] = $row['id'];
                             $_SESSION['user']['firstname'] = $row['firstname'];

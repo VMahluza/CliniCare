@@ -80,42 +80,52 @@
             </div>
             <a class="container btn btn-primary" style="float: right" href="./AddDiagnosis.php?id=<?php echo $patient->getId()?>">Add Diagnosis</a>
         </div>
-        <table class = "table">
-            <thead>
-            <th>DIAGNOSIS NUMBER</th>
-            <th>TITLE</th>
-            <th>DESCRIPTION</th>
-            </thead>
-            <tbody>
 
-            <?php
+        <?php
 
-            foreach ($diagnosis as $diagnosis){
+        if ($diagnosis){
+            echo <<< TABLEHEADSTART
+                <table class = "table">
+                    <thead>
+                        <th>DIAGNOSIS NUMBER</th>
+                        <th>TITLE</th>
+                        <th>DESCRIPTION</th>
+                    </thead>
+                    <tbody>
+                TABLEHEADSTART;
 
 
-                $Diagnosis_id = $diagnosis->getDiagnosisId();
-                $person_id = $diagnosis->getPersonId();
-                $title = $diagnosis->getTitle();
-                $description = $diagnosis->getDescription();
-                $date = $diagnosis->getDate();
+                foreach ($diagnosis as $diagnosis){
 
-                echo <<< HTML
-                                    
-                                <tr>
-                                    <td>$Diagnosis_id</td>
-                                    <td>$title</td>
-                                    <td>$description</td>
-                                    <td style="display: flex; padding: 10px">
-                                        <a style="margin: 5px" class = "btn btn-primary" href="./ViewDiagnosis.php?id=$Diagnosis_id">View</a>
-                                        <a style="margin: 5px" id="idisk" class = "btn btn-secondary" href="./UpdatePatient.php?id=$Diagnosis_id">Update</a>
-                                        <a style="margin: 5px" class = "btn btn-danger" href="./deleteDiagnosis.php?diagnosis_id=$Diagnosis_id">Delete</a>
-                                    </td>
-                                </tr>
 
-                            HTML;
-            }
+                    $Diagnosis_id = $diagnosis->getDiagnosisId();
+                    $person_id = $diagnosis->getPersonId();
+                    $title = $diagnosis->getTitle();
+                    $description = $diagnosis->getDescription();
+                    $date = $diagnosis->getDate();
 
-            ?>
+                    echo <<< HTML
+                                        
+                        <tr>
+                            <td>$Diagnosis_id</td>
+                            <td>$title</td>
+                            <td>$description</td>
+                            <td style="display: flex; padding: 10px">
+                                <a style="margin: 5px" class = "btn btn-primary" href="./ViewDiagnosis.php?id=$Diagnosis_id">View</a>
+                                <a style="margin: 5px" id="idisk" class = "btn btn-secondary" href="./UpdatePatient.php?id=$Diagnosis_id">Update</a>
+                                <a style="margin: 5px" class = "btn btn-danger" href="./deleteDiagnosis.php?diagnosis_id=$Diagnosis_id">Delete</a>
+                            </td>
+                        </tr>
+
+                    HTML;
+                }
+        } else {
+
+            echo "<h5>Seems like this patient does not have any diagnosis yet, click add diagnosis to add new diagnosis</h5>";
+
+        }
+
+    ?>
 
             </tbody>
         </table>
