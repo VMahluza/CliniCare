@@ -74,42 +74,42 @@ if (isset($_REQUEST['addnote_btn'])){
 
         $noteErrorMsg['note']  = "The notes field can not be empty";
 
-    }
+    }else {
 
-    try {
+        try {
 
-        $created = new DateTime();
+            $created = new DateTime();
 
-        $created = $created->format('y-m-d H:i:s');
+            $created = $created->format('y-m-d H:i:s');
 
-        if (isset($_POST['note_discription'])){
+            if (isset($_POST['note_discription'])){
 
-            $insertNote_stmt = $db->prepare("INSERT INTO notes (Diagnosis_id, description, created)
-                                                VALUES (:Diagnosis_id, :description, :created)");
+                $insertNote_stmt = $db->prepare("INSERT INTO notes (Diagnosis_id, description, created)
+                                                    VALUES (:Diagnosis_id, :description, :created)");
 
-            $insert =  $insertNote_stmt->execute([
+                $insert =  $insertNote_stmt->execute([
 
-                    ':Diagnosis_id'=> $diagnosis->getDiagnosisId(),
-                    ':description'=> $_POST['note_discription'],
-                    ':created' => $created
-            ]);
+                        ':Diagnosis_id'=> $diagnosis->getDiagnosisId(),
+                        ':description'=> $_POST['note_discription'],
+                        ':created' => $created
+                ]);
+            }
+
+
+        }catch (PDOException $e){
+
+            echo "Error inserting data";
+
         }
-
-
-    }catch (PDOException $e){
-
-        echo "Error inserting data";
-
     }
-
 }
 //Display the notes associated with diagnosis
 $notes = [];
 
 try {
 
-    $select_note_stmt = $db->prepare("SELECT * FROM notes");
-    $select = $select_note_stmt->execute();
+    $select_note_stmt = $db->prepare("SELECT * FROM notes WHERE Diagnosis_id = :Diagnosis_id");
+    $select = $select_note_stmt->execute([':Diagnosis_id' => $diagnosis->getDiagnosisId()]);
 
     $rows = null;
 
@@ -138,22 +138,6 @@ try {
 }
 
 
-if (isset($_REQUEST['delete_note_btn'])){
-
-    try {
-
-        varDumber($_REQUEST);
-        //$delete_stmt = $db->prepare("DELETE FROM notes WHERE notes.notes_id = :note_id");
-
-
-    } catch(PDOException $e) {
-
-        echo "Error deleting";
-
-    }
-
-
-}
 
 
 
