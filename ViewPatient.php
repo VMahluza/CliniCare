@@ -10,6 +10,7 @@
 
         $id = $_GET['id'];
 
+        /** @var TYPE_NAME $db */
         $select_stmt = $db->prepare("SELECT * FROM patient WHERE id = :id;");
 
         $select_stmt->execute([':id' => $id]);
@@ -35,7 +36,7 @@
 <html lang="en">
 <head>
     <?php $title = " Patient | " . $patient->getPatientNumber();
-    require_once 'htmlhead.php'?>
+    require_once 'htmlhead.php' ?>
 </head>
 
 <body>

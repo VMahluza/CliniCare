@@ -1,15 +1,13 @@
 <?php
 
-namespace Models;
 class Diagnosis
 {
 
-    public int $Diagnosis_id;
-    public int $person_id;//FK
-    public string $title;
-    public string $description;
-    public ?Notes $notes; //array
-    public string $date;
+    private int $Diagnosis_id;
+    private int $person_id;//FK
+    private string $title;
+    private string $description;
+    private string $date;
 
     public function __construct(int $Diagnosis_id,int $person_id,
                                 string $title,
@@ -21,7 +19,6 @@ class Diagnosis
         $this->description = $description;
         $this->date = $date;
         $this->person_id = $person_id;
-        $this->notes = null;
     }
 
     /**
@@ -56,12 +53,13 @@ class Diagnosis
         return $this->date;
     }
 
+
     /**
-     * @return Notes|null
+     * @return int
      */
-    public function getNotes(): array
+    public function getPersonId(): int
     {
-        return $this->notes;
+        return $this->person_id;
     }
 
 }

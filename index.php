@@ -68,7 +68,7 @@
 
 <html lang="en">
     <?php $title = '| Login';
-    require_once 'htmlhead.php'?>
+    require_once 'htmlhead.php' ?>
 <body>
 <div class="container">
 

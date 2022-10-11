@@ -50,7 +50,8 @@ function deletePatient($id){
 <!doctype html>
 <html lang="en">
 <head>
-    <?php  $title = "Patients"; require_once 'htmlhead.php'?>
+    <?php  $title = "Patients";
+    require_once 'htmlhead.php' ?>
 
 </head>
 <body>
@@ -65,7 +66,7 @@ function deletePatient($id){
                     <a class="btn btn-primary">Look</a>
                 </div>
             </form>
-            <a class="container btn btn-primary" style="float: right" href="./">Register a new patient</a>
+            <a class="container btn btn-primary" style="float: right" href="./register_patient.php">Register a new patient</a>
         </div>
         <table class = "table">
             <thead>

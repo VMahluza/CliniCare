@@ -1,111 +1,124 @@
 <?php
 
-session_start();
+    session_start();
 
-require_once './connection.php';
-require_once './Includes/autoload.inc.php';
-require_once './varDump.php';
+    require_once './connection.php';
+    require_once './Includes/autoload.inc.php';
+    require_once './varDump.php';
 
-$patients = [];
+    $diagnosis = [];
 
-try {
-
-
-//    $select_stmt->execute([':email' => $email]);
-//
-//    $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
-
-    /** @var TYPE_NAME $db */
-    $select_stmt = $db->prepare("SELECT id, patientNumber,firstname, surname, created FROM patient;");
+    try {
 
 
-    $select_stmt->execute();
-    $rows = $select_stmt->fetchAll(PDO::FETCH_ASSOC);
+    //    $select_stmt->execute([':email' => $email]);
+    //
+    //    $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
 
 
-    foreach ($rows as $row){
+        /** @var TYPE_NAME $db */
+        $select_stmt = $db->prepare("SELECT id, patientNumber,firstname, surname, created FROM patient WHERE id = :id;");
 
-        $patients[] = new Patient(
+        if (isset($_GET['id'])) $select_stmt->execute([':id' => $_GET['id']]);
+
+        $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
+
+            $patient = new Patient(
 
             $row['id'],
             $row['patientNumber'],
             $row['firstname'],
             $row['surname'],
             $row['created']
-        );
+
+            );
+
+
+
+
+    }catch (PDOException $E){
+        $pdoErro = $E->getMessage();
+        echo "We have an error due to : $pdoErro";
     }
-}catch (PDOException $E){
-    $pdoErro = $E->getMessage();
-    echo "We have an error due to : $pdoErro";
-}
 
-function deletePatient($id){
+    $diagnosis = [];
 
-    varDumber($id);
+    try {
 
-}
+        $select_stmt = $db->prepare("SELECT * FROM diagnosis WHERE person_id = :id");
+        if (isset($_GET['id'])) $select_stmt->execute([':id' => $_GET['id']]);
 
-?>
+        $rows = $select_stmt->fetchAll(PDO::FETCH_ASSOC);
 
-<!doctype html>
-<html lang="en">
-<head>
-    <?php  $title = "Patients"; require_once 'htmlhead.php'?>
+        foreach ($rows as $row){
 
-</head>
-<body>
+            $diagnosis[] = new Diagnosis(
 
-<div class="container">
+                $row["Diagnosis_id"],
+                $row["person_id"],
+                $row["title"],
+                $row["description"],
+                $row['date']
 
-    <div class = "mb-3" >
-        <form action="">
+            );
+
+        }
+
+    }catch (PDOException $e){
+
+        echo "Failed to execute from the database check issue on the Diagnosis table";
+
+    }
+
+    ?>
+    <div class="container">
+
+        <div class = "mb-3" >
             <div class="mb-3" style="display: flex">
                 <input type="text" name="firstname" class="form-control" placeholder="Search diagnosis">
                 <a class="btn btn-primary">Look</a>
             </div>
-        </form>
-        <a class="container btn btn-primary" style="float: right" href="./AddDiagnosis.php">Add Diagnosis</a>
+            <a class="container btn btn-primary" style="float: right" href="./AddDiagnosis.php?id=<?php echo $patient->getId()?>">Add Diagnosis</a>
+        </div>
+        <table class = "table">
+            <thead>
+            <th>DIAGNOSIS NUMBER</th>
+            <th>TITLE</th>
+            <th>DESCRIPTION</th>
+            </thead>
+            <tbody>
+
+            <?php
+
+            foreach ($diagnosis as $diagnosis){
+
+
+                $Diagnosis_id = $diagnosis->getDiagnosisId();
+                $person_id = $diagnosis->getPersonId();
+                $title = $diagnosis->getTitle();
+                $description = $diagnosis->getDescription();
+                $date = $diagnosis->getDate();
+
+                echo <<< HTML
+                                    
+                                <tr>
+                                    <td>$Diagnosis_id</td>
+                                    <td>$title</td>
+                                    <td>$description</td>
+                                    <td style="display: flex; padding: 10px">
+                                        <a style="margin: 5px" class = "btn btn-primary" href="./ViewDiagnosis.php?id=$Diagnosis_id">View</a>
+                                        <a style="margin: 5px" id="idisk" class = "btn btn-secondary" href="./UpdatePatient.php?id=$Diagnosis_id">Update</a>
+                                        <a style="margin: 5px" class = "btn btn-danger" href="./deleteDiagnosis.php?diagnosis_id=$Diagnosis_id">Delete</a>
+                                    </td>
+                                </tr>
+
+                            HTML;
+            }
+
+            ?>
+
+            </tbody>
+        </table>
     </div>
-    <table class = "table">
-        <thead>
-        <th>DIAGNOSIS NUMBER</th>
-        <th>TITLE</th>
-        <th>DESCRIPTION</th>
-        </thead>
-        <tbody>
-
-        <?php
-
-        foreach ($patients as $patient){
-
-            $id = $patient->getId();
-            $name = ucwords(strtolower($patient->getFirstName()));
-            $surname = ucwords(strtolower($patient->getSurname()));
-            $patientNumber = $patient->getPatientNumber();
-
-            echo <<< HTML
-                                
-                            <tr>
-                                <td>$id</td>
-                                <td>TB Virus</td>
-                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aperiam asperiores aspernatur ipsa iusto laborum nam odio quod, repellendus voluptas! Accusamus, cupiditate.</td>
-                                <td style="display: flex; padding: 10px">
-                                    <a style="margin: 5px" class = "btn btn-primary" href="./ViewPatient.php?id=$id">View</a>
-                                    <a style="margin: 5px" class = "btn btn-secondary" href="./UpdatePatient.php?id=$id">Update</a>
-                                    <a style="margin: 5px" class = "btn btn-danger" href="./deletePatient.php?id=$id">Delete</a>
-                                </td>
-                            </tr>
-
-                        HTML;
-        }
-
-        ?>
-
-        </tbody>
-    </table>
-</div>
-
-</body>
-</html>
 
 

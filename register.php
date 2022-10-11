@@ -111,7 +111,7 @@
 
 <head>
     <?php $title = ' Register';
-    require_once 'htmlhead.php'?>
+    require_once 'htmlhead.php' ?>
 </head>
 
 <body>

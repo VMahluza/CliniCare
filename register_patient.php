@@ -80,7 +80,8 @@ if (isset($_REQUEST['register_btn'])){
 <!doctype html>
 <html lang="en">
 <head>
-    <?php $title = "New Patient"; require_once './htmlhead.php'?>
+    <?php $title = "New Patient";
+    require_once './htmlhead.php' ?>
 </head>
 <body>
 
