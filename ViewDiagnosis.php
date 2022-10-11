@@ -46,11 +46,11 @@ if(isset($_GET)){
         $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
 
         $diagnosis = new Diagnosis(
-                $row['Diagnosis_id'],
+            $row['Diagnosis_id'],
             $row["person_id"],
             $row["title"],
             $row["description"],
-            date('Y/m/d')
+            $row['date']
         );
 
 
@@ -67,8 +67,6 @@ $noteInsert = null;
 if (isset($_REQUEST['addnote_btn'])){
 
     //Validation on Notes
-
-
 
     if(!isset($_POST['note_discription']) || $_POST['note_discription'] == ""){
 
@@ -259,6 +257,7 @@ try {
 
     <a href="./patientList.php" class="btn btn-primary">Cancel</a>
     <a href="./patientList.php" class="btn btn-secondary">Back</a>
+
 </div>
 </body>
 

@@ -100,13 +100,13 @@ if (isset($_REQUEST['register_btn'])){
 
         <div class="mb-3">
             <label for="firstname" class="form-label">First Name</label>
-            <input type="text" name="firstname" class="form-control" placeholder="Victor">
+            <input type="text" name="firstname" class="form-control" placeholder="Patient name goes here...">
         </div>
 
 
         <div class="mb-3">
             <label for="surname" class="form-label">Last Name</label>
-            <input type="text" name="surname" class="form-control" placeholder="Mahluza">
+            <input type="text" name="surname" class="form-control" placeholder="Patient surname goes here...">
         </div>
 
         <div class="mb-3">
