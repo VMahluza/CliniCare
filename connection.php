@@ -4,10 +4,10 @@
 
 //Variable Strings for Db
 //The commented strings are to be used when you are using localhost 
-$db_host = "iu51mf0q32fkhfpl.cbetxkdyhwsb.us-east-1.rds.amazonaws.com"; //"localhost";
-$db_user = "xqo51kejv2e4gwyo"; //"root";
-$db_password = "jyzogi6sggo7sqvt"; //"";
-$db_name = "t749gvx28qflrkkn"; //"clinicaredb";
+$db_host = "localhost";
+$db_user = "root";
+$db_password = "";
+$db_name = "clinicaredb";
 
 $db = null;
 //Database connection
