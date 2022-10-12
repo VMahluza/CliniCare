@@ -69,35 +69,66 @@
     <?php $title = '| Login';
     require_once 'htmlhead.php' ?>
 <body>
-<div class="container">
+<main class="main container">
 
-    <?php
-        if(isset($errorMsg[2])){
-            foreach ($errorMsg[2] as $error){
-                echo "<p class='small text-danger'>".$error."</p>";
-            }
-        }
-    ?>
-    <form action="index.php" method="post">
-        <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input type="email" name="email" class="form-control" placeholder="jane@doe.com">
+    <!-- Some cool animation before the index page come into view 😎😎😎-->
+    <div class="onload-animation-screen">
+        <div class="logo-animation">
+            <div class="left-c">
+                <img src="public/images/logo-parts/left-c.svg" alt="">
+            </div>
+            <div class="clini-care-text">
+                <img class="clini" src="public/images/logo-parts/CLINI.svg" alt="">
+                <img class="care" src="public/images/logo-parts/CARE.svg" alt="">
+            </div>
+            <div class="right-c">
+                <img src="public/images/logo-parts/right-c.svg" alt="">
+            </div>
+        </div>
+        <h1 class="slogan">Health Care For All</h1>
+    </div>
+
+    <div class="split-screen">
+        <div class="split-screen__img">
+            <img src="../CliniCare/public/images/doctor.svg" alt="doctor photo">
+
         </div>
         <?php
-            if(isset($errorMsg[3])){
-                foreach ($errorMsg[3] as $error){
+            if(isset($errorMsg[2])){
+                foreach ($errorMsg[2] as $error){
                     echo "<p class='small text-danger'>".$error."</p>";
                 }
             }
         ?>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" placeholder="">
-        </div>
-        <button type="submit" name="login_btn" class="btn btn-primary">Login</button>
-    </form>
-    No Account? <a class="register" href="register.php">Register Instead</a>
-</div>
+        <form class="split-screen__form" action="index.php" method="post">
+
+            <h1 class="section-title">Login to your account</h1>
+            <p class="section-text">or <a class="link-pink" href="../CliniCare/register.php">signup here</a> to create an account</p>
+
+
+            <div class="form-group">
+                <label for="email" class="form-label">Email address</label>
+                <input class="form-group__input" type="email" name="email" class="form-control" placeholder="">
+            </div>
+            <?php
+                if(isset($errorMsg[3])){
+                    foreach ($errorMsg[3] as $error){
+                        echo "<p class='small text-danger'>".$error."</p>";
+                    }
+                }
+            ?>
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <div class="password">
+                    <input class="form-group__input" type="password" name="password" class="form-control" placeholder="">
+                </div>
+            </div>
+
+            <button class="button btn-login" type="submit" name="login_btn" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+</main>
+<?php include_once './views/_footer.php'; ?>
 </body>
 
 </html>

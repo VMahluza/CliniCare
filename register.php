@@ -115,81 +115,108 @@
 </head>
 
 <body>
-<div class="container">
-    <form action="register.php" method="post">
+<main class="main container">
 
-        <?php
-            if(isset($errorMsg[0])){
-                foreach ($errorMsg[0] as $error){
-                    echo "<p class='small text-danger'>".$error."</p>";
+
+    <div class="split-screen__form">
+        <div class="split-screen__img">
+            <img src="./public/images/medicine.svg" alt="doctor photo">
+        </div>
+        <form class="split-screen__form" action="register.php" method="post">
+
+            <h1 class="section-title">Restration</h1>
+            <p class="section-text">Create an account or <a class="link-blue" href="./index.php">login here</a> if you already have an account</p>
+
+            <div class="form-grid">
+                <?php
+                if(isset($errorMsg[0])){
+                    foreach ($errorMsg[0] as $error){
+                        echo "<p class='small text-danger'>".$error."</p>";
+                    }
                 }
-            }
-        ?>
+                ?>
 
-        <div class="mb-3">
-            <label for="firstname" class="form-label">Name</label>
-            <input type="text" name="firstname" class="form-control" placeholder="Victor">
-        </div>
+                <div class="form-group">
+                    <label for="firstname" class="form-label">Name</label>
+                    <input type="text" name="firstname" class="form-group__input">
+                </div>
 
-        <?php
-            if(isset($errorMsg[1])){
-                foreach ($errorMsg[1] as $error){
-                    echo "<p class='small text-danger'>".$error."</p>";
+                <?php
+                if(isset($errorMsg[1])){
+                    foreach ($errorMsg[1] as $error){
+                        echo "<p class='small text-danger'>".$error."</p>";
+                    }
                 }
-            }
-        ?>
+                ?>
 
-        <div class="mb-3">
-            <label for="surname" class="form-label">Name</label>
-            <input type="text" name="surname" class="form-control" placeholder="Mahluza">
-        </div>
+                <div class="form-group">
+                    <label for="surname" class="form-label">Name</label>
+                    <input type="text" name="surname" class="form-group__input" >
+                </div>
 
-        <?php
-            if(isset($errorMsg[2])){
-                foreach ($errorMsg[2] as $error){
-                    echo "<p class='small text-danger'>".$error."</p>";
+                <?php
+                if(isset($errorMsg[2])){
+                    foreach ($errorMsg[2] as $error){
+                        echo "<p class='small text-danger'>".$error."</p>";
+                    }
                 }
-            }
-        ?>
+                ?>
 
-        <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input type="email" name="email" class="form-control" placeholder="email@mail.com">
-        </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" name="email" class="form-group__input" required>
+                </div>
+                <!-- PASSWORD-->
+                <?php
+                if(isset($errorMsg[3])){
+                    foreach ($errorMsg[3] as $error){
+                        echo "<p class='small text-danger'>".$error."</p>";
+                    }
+                }
+                ?>
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="password">
+                        <input type="password" name="password" class="form-group__input" required>
+                    </div>
+                </div>
+<!--                REPEAT PASSWORD-->
+                <?php
+                if(isset($errorMsg[4])){
+                    foreach ($errorMsg[4] as $error){
+                        echo "<p class='small text-danger'>".$error."</p>";
+                    }
+                }
+                ?>
+                <div class="form-group">
+                    <label for="repassword">Repeat password</label>
+                    <div class="password">
+                        <input type="password" name="repassword" class="form-group__input"  required>
+                    </div>
+                </div>
+<!--                select Role-->
+                <div class="form-group">
+                    <label for="repassword" class="form-label">Select Role</label>
+                    <select class="role-selection" name="role" id="role">
+                        <option value=""></option>
+                        <option value="DR">Doctor</option>
+                        <option value="ADMIN">Administrator</option>
+                    </select>
+                </div>
+                <!--Not impplemented-->
+                <div class="form-group">
+                    <label for="privacy-agreement">
+                        <input type="checkbox" name="privacy-agreement" id="privacy-agreement" required>
+                        I agree to the <a class="link-pink" href="#">privacy policy</a> of CliniCare
+                    </label>
+                </div>
+            </div>
+            <button type="submit" name="register_btn" class="button btn-signup">Register Account</button>
+        </form>
+    </div>
 
-        <?php
-            if(isset($errorMsg[3])){
-                foreach ($errorMsg[3] as $error){
-                    echo "<p class='small text-danger'>".$error."</p>";
-                }
-            }
-        ?>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" placeholder="password">
-        </div>
-        <?php
-            if(isset($errorMsg[4])){
-                foreach ($errorMsg[4] as $error){
-                    echo "<p class='small text-danger'>".$error."</p>";
-                }
-            }
-        ?>
-        <div class="mb-3">
-            <label for="repassword" class="form-label">Repeat password</label>
-            <input type="password" name="repassword" class="form-control" placeholder="re-password">
-        </div>
-        <div class="mb-3">
-            <label for="repassword" class="form-label">Role ?</label>
-            <select class="form-select form-select-sm" name="role" id="role">
-                <option value="DR">Dr</option>
-                <option value="ADMIN">Admin</option>
-            </select>
-        </div>
-        <button type="submit" name="register_btn" class="btn btn-primary">Register Account</button>
-    </form>
-    Already Have an Account? <a class="register" href="index.php">Login Instead</a>
-</div>
+</main>
+<?php include_once './views/_footer.php'; ?>
 </body>
 
 </html>
