@@ -1,0 +1,436 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*=================================== VARIABLES ===================================*/
+:root {
+  /* Colors - Primary */
+  --blue: #6c63ff;
+  --pink: #ff748e;
+  --dark-grayish-blue: #3f3d56;
+
+  /* Colors - Neutral*/
+  --light-blue: #7d90be;
+  --purple: #b1b2ff;
+  --light-purple: #d2daff;
+  --extra-light-purple: #eef1ff;
+
+  /* Typography - Font weights*/
+  --light-text: 300;
+  --regular-text: 400;
+  --bold-text: 700;
+}
+
+/*=================================== GLOBAL STYLES ===================================*/
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--extra-light-purple);
+  color: var(--dark-grayish-blue);
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+button {
+  font-family: 'Montserrat', sans-serif;
+  outline: none;
+  cursor: pointer;
+  border: none;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.main {
+  margin-top: 20vh;
+}
+
+.section-title,
+.section-text {
+  
+}
+
+.section-text {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.button {
+  padding: 1rem 2rem;
+  font-weight: var(--bold-text);
+  font-size: 1.25rem;
+  border-radius: 5px;
+  letter-spacing: 2px;
+}
+
+.btn-signup {
+  background-color: var(--pink);
+  color: var(--extra-light-purple);
+}
+.btn-login {
+  background-color: var(--blue);
+  color: var(--extra-light-purple);
+}
+
+.link-blue {
+  color: var(--blue);
+  font-weight: var(--bold-text);
+}
+
+.link-pink {
+  color: var(--pink);
+  font-weight: var(--bold-text);
+}
+
+.split-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.split-screen__img {
+  width: 70%;
+  margin: 0 auto;
+}
+.split-screen__img img {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .split-screen {
+    flex-direction: row;
+  }
+
+  .split-screen__img {
+    width: 40%;
+  }
+
+  .split-screen__form {
+    width: 50%;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 30px;
+  }
+}
+
+/*=================================== ANIMATIONS FOR THE SPLASH SCREEN ===================================*/
+.onload-animation-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--extra-light-purple);
+  width: 100%;
+  height: 100vh;
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  animation: hide-splash-screen 1s ease-out 5s normal forwards;
+}
+
+.logo-animation {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.left-c {
+  animation: animate-left-c 1s ease-out 1s normal forwards;
+}
+
+@keyframes animate-left-c {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-220px);
+  }
+}
+
+.right-c {
+  animation: animate-right-c 1s ease-out 1s normal forwards;
+}
+
+@keyframes animate-right-c {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(220px);
+  }
+}
+
+.clini-care-text {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 0;  
+  right: 0;
+}
+
+@keyframes slide-text-top {
+  from {
+
+  }
+}
+
+.clini {
+  opacity: 0;
+  animation: slide-text-top 1s ease-out 2s normal forwards;
+}
+
+@keyframes slide-text-top {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(50px);
+    opacity: 1;
+  }
+}
+
+.care {
+  opacity: 0;
+  animation: slide-text-bottom 1s ease-out 2s normal forwards;
+}
+
+@keyframes slide-text-bottom {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slogan {
+  margin-top: 3rem;
+  color: var(--light-blue);
+  font-weight: 300;
+  opacity: 0;
+  animation: animate-slogan 1s ease-out 3s normal forwards;
+}
+
+@keyframes animate-slogan {
+  from {
+    transform: translateY(20px);
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Animation to hide the splash screen */
+@keyframes hide-splash-screen {
+  from {
+    display: flex;
+  }
+  to {
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+/*=================================== HEADER ===================================*/
+.header {
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.header__navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 10vh;
+}
+
+.header__logo {
+  width: 100px;
+}
+
+.header__logo img {
+  width: 100%;
+}
+
+.navbar__list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 20%;
+}
+
+/*=================================== FORMS SYLES ===================================*/
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+
+.form-group__input,
+.role-selection {
+  height: 40px;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid var(--blue);
+  background-color: transparent;
+  font-size: 1.5rem;
+}
+
+.password {
+  width: 100%;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+#password, #repeat-password {
+  position: absolute;
+  width: 100%;
+}
+
+.password-show {
+  width: 20px;
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}
+
+
+.role-selection option {
+  height: 20px;
+  font-size: 1rem;
+}
+
+.form-group__input:focus {
+  border-bottom: 4px solid var(--blue);
+}
+
+
+/*=================================== FOOTER STYLES ===================================*/
+.footer {
+  color: var(--dark-grayish-blue);
+  padding: 20px 0;
+  margin-top: 4rem;
+  border-top: 3px solid var(--dark-grayish-blue);
+}
+
+.footer a {
+  color: var(--light-blue);
+  margin: 0.5rem 0;
+}
+
+.footer > .container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.footer__legal, .footer__IT-support {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.copyright {
+  text-align: center;
+}
+
+
+/*=================================== PATIENTS PAGE STYLES ===================================*/
+.admin-panel {
+  background-color: var(--dark-grayish-blue);
+  color: var(--extra-light-purple);
+  height: 10vh;
+}
+
+
+.admin-panel .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: inherit;
+}
+
+.search-patient {
+  display: flex;
+  width: 70vh;
+}
+
+#search-patient,
+#search-btn {
+  height: 40px;
+  border: none;
+  outline: none;
+}
+
+#search-patient {
+  width: 100%;
+  background-color: var(--extra-light-purple);
+  padding-left: 10px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+#search-btn {
+  padding-left: 10px;
+  padding-right: 10px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: var(--blue);
+  color: var(--extra-light-purple);
+}
+
+#logout-btn {
+  background-color: transparent;
+  color: var(--pink);
+  font-weight: var(--bold-text);
+  font-size: 1rem;
+}
+
+table {
+  width: 100%;
+  margin-top: 3rem;
+  border-spacing: 0;
+}
+
+th {
+  width: 20%;
+  text-align: left;
+  background-color: var(--blue);
+  color: var(--extra-light-purple);
+  padding: 1rem 0.5rem;
+}
+
+tr {
+}
+
+td {
+  padding: 1rem 0.5rem;
+  border-bottom: 1px solid var(--dark-grayish-blue);
+}
+
