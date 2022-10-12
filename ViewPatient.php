@@ -65,7 +65,6 @@
 
         <?php require_once './DiagnosisList.php'?>
 
-        <button type="submit" name="register_btn" class="btn btn-primary">Save</button>
     </form>
 
     <a href="./patientList.php" class="btn btn-primary">Cancel</a>

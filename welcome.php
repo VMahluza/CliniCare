@@ -3,9 +3,8 @@
 
     require_once './connection.php';
     session_start();
-
     if (!isset($_SESSION['user'])){
-        header('Location : index.php');
+        header('location : index.php');
     }
 
     $title = $_SESSION['user']['firstname'] . ' ' . $_SESSION['user']['surname'];

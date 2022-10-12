@@ -3,6 +3,7 @@
 //This file should be included to any file that needs access to our database
 
 //Variable Strings for Db
+//The commented strings are to be used when you are using localhost 
 $db_host = "localhost";
 $db_user = "root";
 $db_password = "";

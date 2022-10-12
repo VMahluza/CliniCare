@@ -12,13 +12,10 @@ if (isset($_REQUEST['register_btn'])){
 
     $firstname = filter_var(strtoupper($_REQUEST['firstname']), FILTER_SANITIZE_STRING);
 
-    varDumber($firstname);
     $surname =  filter_var(strtoupper($_REQUEST['surname']), FILTER_SANITIZE_STRING);
-    varDumber($surname);
     $patientNumber = filter_var(strtoupper($_REQUEST['patientNumber']), FILTER_SANITIZE_STRING);
-    varDumber($patientNumber);
 
-    $errorMsg;
+    $errorMsg = null;
     //Error checking
     if (empty($firstname)){
         $errorMsg [0][] = 'First name field is required';
@@ -30,8 +27,6 @@ if (isset($_REQUEST['register_btn'])){
     if (empty($patientNumber)){
         $errorMsg [2][] = 'patient number field is required';
     }
-
-    varDumber($errorMsg);
 
     if (empty($errorMsg)){
         try {
@@ -126,7 +121,7 @@ if (isset($_REQUEST['register_btn'])){
                 <option value="NO">No</option>
             </select>
         </div>
-
         <button type="submit" name="register_btn" class="btn btn-primary">Register Patient</button>
+        <a href="./patientList.php" class="btn btn-secondary">Back</a>
     </form>
 </div>
