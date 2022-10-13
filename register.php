@@ -115,10 +115,10 @@
 </head>
 
 <body>
+
 <main class="main container">
 
-
-    <div class="split-screen__form">
+    <div class="split-screen">
         <div class="split-screen__img">
             <img src="./public/images/medicine.svg" alt="doctor photo">
         </div>
@@ -137,7 +137,7 @@
                 ?>
 
                 <div class="form-group">
-                    <label for="firstname" class="form-label">Name</label>
+                    <label for="firstname" class="form-label">First Name</label>
                     <input type="text" name="firstname" class="form-group__input">
                 </div>
 
@@ -150,7 +150,7 @@
                 ?>
 
                 <div class="form-group">
-                    <label for="surname" class="form-label">Name</label>
+                    <label for="surname" class="form-label">Last Name</label>
                     <input type="text" name="surname" class="form-group__input" >
                 </div>
 
@@ -177,7 +177,8 @@
                 <div class="form-group">
                     <label for="password" class="form-label">Password</label>
                     <div class="password">
-                        <input type="password" name="password" class="form-group__input" required>
+                        <input type="password" name="password" class="form-group__input" id="password" required>
+                        <img class="password-show" src="./public/images/eye.svg" alt="show password button" id="show-password">
                     </div>
                 </div>
 <!--                REPEAT PASSWORD-->
@@ -191,14 +192,15 @@
                 <div class="form-group">
                     <label for="repassword">Repeat password</label>
                     <div class="password">
-                        <input type="password" name="repassword" class="form-group__input"  required>
+                        <input type="password" name="repassword" class="form-group__input" id="repeat-password"  required>
+                        <img class="password-show" src="./public/images/eye.svg" alt="show password button" id="show-repeat-password">
                     </div>
                 </div>
 <!--                select Role-->
                 <div class="form-group">
                     <label for="repassword" class="form-label">Select Role</label>
                     <select class="role-selection" name="role" id="role">
-                        <option value=""></option>
+                        <option value="" disabled>Select your role</option>
                         <option value="DR">Doctor</option>
                         <option value="ADMIN">Administrator</option>
                     </select>

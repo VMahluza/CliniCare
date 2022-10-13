@@ -103,12 +103,12 @@
         <form class="split-screen__form" action="index.php" method="post">
 
             <h1 class="section-title">Login to your account</h1>
-            <p class="section-text">or <a class="link-pink" href="../CliniCare/register.php">signup here</a> to create an account</p>
+            <p class="section-text">or <a class="link-pink" href="register.php">signup here</a> to create an account</p>
 
 
             <div class="form-group">
                 <label for="email" class="form-label">Email address</label>
-                <input class="form-group__input" type="email" name="email" class="form-control" placeholder="">
+                <input class="form-group__input" type="email" name="email"  placeholder="">
             </div>
             <?php
                 if(isset($errorMsg[3])){
@@ -120,7 +120,8 @@
             <div class="form-group">
                 <label for="password" class="form-label">Password</label>
                 <div class="password">
-                    <input class="form-group__input" type="password" name="password" class="form-control" placeholder="">
+                    <input class="form-group__input" type="password" name="password" id="password">
+                    <img class="password-show" src="./public/images/eye.svg" alt="show password button" id="show-password">
                 </div>
             </div>
 

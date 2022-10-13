@@ -40,36 +40,39 @@
 </head>
 
 <body>
-<div class="container">
-    <form action="" method="post">
+<?php require_once './views/_header.php' ?>
 
-
-        <div class="mb-3" style="display: flex">
+<main class="main">
+    <div class="patient">
+        <form action="" method="post" class="container">
+        <div class="patient-detail patient-number">
             <label for="firstname" class="form-label">Patient Number</label>
-            <input type="number" disabled name="firstname" class="form-control" value="<?php echo $patient->getPatientNumber()?>" >
+            <input type="number" disabled name="firstname" class="" value="<?php echo $patient->getPatientNumber()?>" >
         </div>
-        <div class="mb-3">
+        <div class="patient-detail">
             <label for="firstname" class="form-label">Name</label>
-            <input type="text" disabled name="firstname" class="form-control" value="<?php echo ucwords(strtolower($patient->getFirstName()))?>">
+            <input type="text" disabled name="firstname" class="" value="<?php echo ucwords(strtolower($patient->getFirstName()))?>">
         </div>
 
-        <div class="mb-3">
+        <div class="patient-detail">
             <label for="firstname" class="form-label">Surname</label>
-            <input type="text" disabled name="firstname" class="form-control" value="<?php echo ucwords(strtolower($patient->getSurname()))?>">
+            <input type="text" disabled name="firstname" class="" value="<?php echo ucwords(strtolower($patient->getSurname()))?>">
         </div>
 
-        <div class="mb-3">
+        <div class="patient-detail">
             <label for="firstname" class="form-label">Admision date</label>
-            <input type="text" disabled name="firstname" class="form-control" value="<?php echo $create ?>">
+            <input type="text" disabled name="firstname" class="" value="<?php echo $create ?>">
         </div>
+
+        
+        </form>
 
         <?php require_once './DiagnosisList.php'?>
-
-    </form>
+    </div>
 
     <a href="./patientList.php" class="btn btn-primary">Cancel</a>
     <a href="./patientList.php" class="btn btn-secondary">Back</a>
-</div>
+</main>
 </body>
 
 </html>
