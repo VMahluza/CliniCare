@@ -83,6 +83,10 @@ button {
   background-color: var(--blue);
   color: var(--extra-light-purple);
 }
+.btn-primary {
+  background-color: var(--blue);
+  color: var(--extra-light-purple);
+}
 
 .link-blue {
   color: var(--blue);
@@ -343,8 +347,13 @@ button {
   font-size: 1rem;
 }
 
+
 .form-group__input:focus {
   border-bottom: 4px solid var(--blue);
+}
+
+.form-group__input {
+  width: 100%;
 }
 
 
@@ -451,3 +460,129 @@ td {
   border-bottom: 1px solid var(--dark-grayish-blue);
 }
 
+
+/*=================================== VIEW PATIENTS PAGE STYLES ===================================*/
+.patient {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  color: var(--dark-grayish-blue);
+}
+
+.patient form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 2rem;
+}
+
+.patient-detail {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  
+}
+
+
+.patient-detail label, .patient-detail input {
+  font-size: 1rem;
+}
+
+.patient-detail input {
+  border: none;
+  background: transparent;
+}
+
+.patient-number {
+  flex-direction: column;
+}
+
+.patient-number label, .patient-number input {
+  font-size: 1.5rem;
+  font-weight: var(--bold-text);
+  color: var(--blue);
+}
+
+.diagnosis-container {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.diagnosis-search-bar {
+  background-color: var(--dark-grayish-blue);
+  color: var(--extra-light-purple);
+  padding: 1rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.diagnosis-search-btn {
+  height: 40px;
+  border: none;
+  outline: none;
+}
+
+.diagnosis-search-input {
+  height: 40px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  padding-left: 10px;
+}
+
+.diagnosis-cards {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+.diagnosis-card {
+  width: 200px;
+  background-color: var(--dark-grayish-blue);
+  color: var(--extra-light-purple);
+  padding: 1rem;
+  margin: 10px;
+  border-radius: 10px;
+  width: 300px;
+}
+
+.diagnosis-card__title,
+.diagnosis-card__id,
+.diagnosis-card__description {
+  margin-bottom: 1rem;
+}
+
+.diagnosis-card__CTAs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: 'update delete'
+                       'view view';
+  
+  grid-gap: 10px;
+  text-align: center;
+}
+
+.diagnosis__CTA-view {
+  grid-area: view;
+  background-color: var(--extra-light-purple);
+  color: var(--dark-grayish-blue);
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+.diagnosis__CTA-update {
+  grid-area: update;
+  background-color: var(--blue);
+  color: var(--extra-light-purple);
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+.diagnosis__CTA-delete {
+  grid-area: delete; 
+  background-color: var(--pink);
+  color: var(--extra-light-purple);
+  padding: 0.5rem;
+  border-radius: 5px;
+}
