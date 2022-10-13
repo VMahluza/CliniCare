@@ -70,65 +70,53 @@
 
     }
 
-    ?>
-    <div class="container">
+?>
 
-        <div class = "mb-3" >
-            <div class="mb-3" style="display: flex">
-                <input type="text" name="firstname" class="form-control" placeholder="Search diagnosis">
-                <a class="btn btn-primary">Look</a>
-            </div>
-            <a class="container btn btn-primary" style="float: right" href="./AddDiagnosis.php?id=<?php echo $patient->getId()?>">Add Diagnosis</a>
+<div class="diagnosis-container">
+
+    <div class = "diagnosis-search-bar" >
+        <div class="">
+            <input type="search" name="firstname" class="diagnosis-search-input" placeholder="Search diagnosis">
+            <a class="diagnosis-search-btn">Look</a>
         </div>
-
-        <?php
-
-        if ($diagnosis){
-            echo <<< TABLEHEADSTART
-                <table class = "table">
-                    <thead>
-                        <th>DIAGNOSIS NUMBER</th>
-                        <th>TITLE</th>
-                        <th>DESCRIPTION</th>
-                    </thead>
-                    <tbody>
-                TABLEHEADSTART;
-
-
-                foreach ($diagnosis as $diagnosis){
-
-
-                    $Diagnosis_id = $diagnosis->getDiagnosisId();
-                    $person_id = $diagnosis->getPersonId();
-                    $title = $diagnosis->getTitle();
-                    $description = $diagnosis->getDescription();
-                    $date = $diagnosis->getDate();
-
-                    echo <<< HTML
-                                        
-                        <tr>
-                            <td>$Diagnosis_id</td>
-                            <td>$title</td>
-                            <td>$description</td>
-                            <td style="display: flex; padding: 10px">
-                                <a style="margin: 5px" class = "btn btn-primary" href="./ViewDiagnosis.php?id=$Diagnosis_id">View</a>
-                                <a style="margin: 5px" id="idisk" class = "btn btn-secondary" href="./UpdatePatient.php?id=$Diagnosis_id">Update</a>
-                                <a style="margin: 5px" class = "btn btn-danger" href="./deleteDiagnosis.php?diagnosis_id=$Diagnosis_id">Delete</a>
-                            </td>
-                        </tr>
-
-                    HTML;
-                }
-        } else {
-
-            echo "<h5>Seems like this patient does not have any diagnosis yet, click add diagnosis to add new diagnosis</h5>";
-
-        }
-
-    ?>
-
-            </tbody>
-        </table>
+        <a class="" href="./AddDiagnosis.php?id=<?php echo $patient->getId()?>">Add Diagnosis</a>
     </div>
+
+    <?php
+        if ($diagnosis){
+            echo <<< HTML
+                <div class="diagnosis-cards">
+            HTML;
+
+            foreach ($diagnosis as $diagnosis){
+                $Diagnosis_id = $diagnosis->getDiagnosisId();
+                $person_id = $diagnosis->getPersonId();
+                $title = $diagnosis->getTitle();
+                $description = $diagnosis->getDescription();
+                $date = $diagnosis->getDate();
+
+                echo <<< HTML
+                        <div class="diagnosis-card">
+                            <h3 class="diagnosis-card__title">$title</h3>
+                            <h4 class="diagnosis-card__id">Diagnosis ID: $Diagnosis_id</h4>
+                            <p class="diagnosis-card__description">$description</p>
+                            <div class="diagnosis-card__CTAs">
+                                <a class = "diagnosis__CTA-view" href="./ViewDiagnosis.php?id=$Diagnosis_id">View</a>
+                                <a class = "diagnosis__CTA-update" href="./UpdatePatient.php?id=$Diagnosis_id">Update</a>
+                                <a class ="diagnosis__CTA-delete" href="./deleteDiagnosis.php?diagnosis_id=$Diagnosis_id">Delete</a>
+                            </div>
+                        </div>
+                HTML;
+            }
+
+            echo <<< HTML
+                </div>
+            HTML;
+
+        } else {
+            echo "<h5>Seems like this patient does not have any diagnosis yet, click add diagnosis to add new diagnosis</h5>";
+        }
+    ?>
+</div>
 
 
