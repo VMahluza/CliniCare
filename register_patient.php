@@ -76,52 +76,58 @@ if (isset($_REQUEST['register_btn'])){
 <html lang="en">
 <head>
     <?php $title = "New Patient";
-    require_once './htmlhead.php' ?>
+    require_once "htmlhead.php" ?>
 </head>
 <body>
 
 </body>
 </html>
 
-<div class="container">
+<main class="container main">
 
-
-
-    <form action="./register_patient.php" method="post">
-
-
-        <?php
-        if(isset($errorMsg[0])){
-            foreach ($errorMsg[0] as $error){
-                echo "<p class='small text-danger'>".$error."</p>";
+    <div class="split-screen">
+        <form action="./register_patient.php" method="post" class="split-screen__form">
+            <h1 class="section-title">Register a new patient</h1>
+            <?php
+            if(isset($errorMsg[0])){
+                foreach ($errorMsg[0] as $error){
+                    echo "<p class='small text-danger'>".$error."</p>";
+                }
             }
-        }
-        ?>
-
-        <div class="mb-3">
-            <label for="firstname" class="form-label">First Name</label>
-            <input type="text" name="firstname" class="form-control" placeholder="Victor">
+            ?>
+    
+            <div class="form-group">
+                <label for="firstname" class="">First Name</label>
+                <input type="text" name="firstname" class="form-group__input" placeholder="">
+            </div>
+    
+    
+            <div class="form-group">
+                <label for="surname" class="">Last Name</label>
+                <input type="text" name="surname" class="form-group__input" placeholder="">
+            </div>
+    
+            <div class="form-group">
+                <label for="password" class="">Patient Number</label>
+                <input type="text" name="patientNumber" class="form-group__input">
+            </div>
+    
+            <div class="form-group">
+                <label for="repassword" class="">Patient has initial diagnosis ?</label>
+                <select class="role-selection" name="role" id="role">
+                    <option value="YES">Yes</option>
+                    <option value="NO">No</option>
+                </select>
+            </div>
+            <button type="submit" name="register_btn" class="btn-signup button">Register Patient</button>
+            <a href="./patientList.php" class="back-btn">Back</a>
+        </form>
+        
+        <div class="split-screen__img">
+            <img src="./public/images/doctors.svg" alt="">
         </div>
+    </div>
 
+</main>
 
-        <div class="mb-3">
-            <label for="surname" class="form-label">Last Name</label>
-            <input type="text" name="surname" class="form-control" placeholder="Mahluza">
-        </div>
-
-        <div class="mb-3">
-            <label for="password" class="form-label">Patient Number</label>
-            <input type="text" name="patientNumber" class="form-control">
-        </div>
-
-        <div class="mb-3" style="display: flex">
-            <label for="repassword" class="form-label">Patient has initial diagnosis ?</label>
-            <select class="form-select form-select-sm" name="role" id="role">
-                <option value="YES">Yes</option>
-                <option value="NO">No</option>
-            </select>
-        </div>
-        <button type="submit" name="register_btn" class="btn btn-primary">Register Patient</button>
-        <a href="./patientList.php" class="btn btn-secondary">Back</a>
-    </form>
-</div>
+<?php require_once './views/_footer.php' ?>
