@@ -15,7 +15,7 @@
 
         $patients = [];
         if (!isset($_SESSION['user'])){
-            header('location : localhost/clinicare/index.php');
+            header('location : localhost/clinicare/login.php');
             session_destroy();
         }else {
 
@@ -49,7 +49,7 @@
 
     } else{
 
-        header('location : localhost/clinicare/index.php');
+        header('location : localhost/clinicare/login.php');
         session_destroy();
     }
 
@@ -62,18 +62,19 @@
     require_once 'htmlhead.php' ?>
 </head>
 <body>
-    <header class="header">
-        <nav class="header__navbar container">
-            <div class="header__logo">
-                <img src="./public/images/logo.svg" alt="">
-            </div>
-            <ul class="navbar__list">
-                <li><a class="navbar__list-partient" href="#">Patients</a></li>
-                <li><a class="navbar__list-add" href="./register_patient.php">Register a new patient</a></li>
-            </ul>
-
-            <a href="#">Contact IT support</a>
-        </nav>
+    <?php require_once "./Views/_header.php";?>
+<!--    <header class="header">-->
+<!--        <nav class="header__navbar container">-->
+<!--            <div class="header__logo">-->
+<!--                <img src="./public/images/logo.svg" alt="">-->
+<!--            </div>-->
+<!--            <ul class="navbar__list">-->
+<!--                <li><a class="navbar__list-partient" href="#">Patients</a></li>-->
+<!--                <li><a class="navbar__list-add" href="./register_patient.php">Register a new patient</a></li>-->
+<!--            </ul>-->
+<!---->
+<!--            <a href="#">Contact IT support</a>-->
+<!--        </nav>-->
     </header>
     <main class="main">
         <section class = "admin-panel" >
@@ -94,7 +95,6 @@
             echo <<< TABLEHEADER
             <table class="patients-table">
                 <thead>
-                    <th>ID</th>
                     <th>NAME</th>
                     <th>SURNAME</th>
                     <th>PATIENT NUMBER</th>
@@ -112,13 +112,12 @@
 
                 echo <<< HTML
                     <tr>
-                        <td>$id</td>
                         <td>$name</td>
                         <td>$surname</td>
                         <td>$patientNumber</td>
                         <td style="display: flex; padding: 10px">
                             <a style="margin: 5px" class = "btn btn-primary" href="./ViewPatient.php?id=$id">View</a>
-                            <a style="margin: 5px" class = "btn btn-secondary" href="./UpdatePatient.php?id=$id">Update</a>
+                            <a style="margin: 5px" class = "btn btn-secondary" href="./update_patient.php?id=$id">Update</a>
                             <a style="margin: 5px" class = "btn btn-danger" href="./deletePatient.php?id=$id">Delete</a>
                         </td>
                     </tr>

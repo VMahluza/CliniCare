@@ -305,6 +305,7 @@ button {
   height: 70%;
 
 }
+
 /*=================================== FORMS SYLES ===================================*/
 .form-group {
   display: flex;
@@ -479,10 +480,8 @@ td {
   display: flex;
   justify-content: space-between;
   margin-bottom: 2rem;
-  
+
 }
-
-
 .patient-detail label, .patient-detail input {
   font-size: 1rem;
 }
@@ -560,7 +559,7 @@ td {
   grid-template-rows: 1fr 1fr;
   grid-template-areas: 'update delete'
                        'view view';
-  
+
   grid-gap: 10px;
   text-align: center;
 }
@@ -580,7 +579,7 @@ td {
   border-radius: 5px;
 }
 .diagnosis__CTA-delete {
-  grid-area: delete; 
+  grid-area: delete;
   background-color: var(--pink);
   color: var(--extra-light-purple);
   padding: 0.5rem;

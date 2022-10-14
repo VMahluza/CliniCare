@@ -5,7 +5,7 @@
     $user = null;
     //If the the user is done registering we redirect the user to the Login page
     session_start();
-    if (isset($_SESSION['user'])) { header("location:index.php" );}
+    if (isset($_SESSION['user'])) { header("location:login.php" );}
 
     //Controlling what happens when a user submitt a form
     //Request has both post and get
@@ -55,7 +55,7 @@
 
                     if ($row['email']  === $email && isset($row['email'])){
 
-                        $errorMsg [2][] = 'email already exist, log in instead <a class="register" href="index.php">Login Instead</a>';
+                        $errorMsg [2][] = 'email already exist, log in instead <a class="register" href="login.php">Login Instead</a>';
                         echo "SEKJEKJRWKRJKWR";
                     }else {
 
@@ -87,7 +87,7 @@
                         if($insert === true){
 
                             //if the user registers here we want them to click something to confirm
-                            header("Location: index.php?msg=".urlencode('Click the varification email'));
+                            header("Location: login.php?msg=".urlencode('Click the varification email'));
                             exit;
                         }
 
@@ -125,7 +125,7 @@
         <form class="split-screen__form" action="register.php" method="post">
 
             <h1 class="section-title">Restration</h1>
-            <p class="section-text">Create an account or <a class="link-blue" href="./index.php">login here</a> if you already have an account</p>
+            <p class="section-text">Create an account or <a class="link-blue" href="login.php">login here</a> if you already have an account</p>
 
             <div class="form-grid">
                 <?php

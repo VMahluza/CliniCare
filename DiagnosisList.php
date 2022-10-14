@@ -71,9 +71,7 @@
     }
 
 ?>
-
 <div class="diagnosis-container">
-
     <div class = "diagnosis-search-bar" >
         <div class="">
             <input type="search" name="firstname" class="diagnosis-search-input" placeholder="Search diagnosis">

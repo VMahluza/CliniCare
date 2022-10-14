@@ -9,7 +9,7 @@
         </div>
         <form action="" class="split-screen__form" method="POST">
             <h1 class="section-title">Restration</h1>
-            <p class="section-text">Create an account or <a class="link-blue" href="../index.php">login here</a> if you already have an account</p>
+            <p class="section-text">Create an account or <a class="link-blue" href="../login.php">login here</a> if you already have an account</p>
             <div class="form-grid">
                 <div class="form-group">
                     <label for="firstname">First Name</label>
