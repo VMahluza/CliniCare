@@ -17,14 +17,12 @@ if ($_GET != null){
 
     $patient = viewPatientById($db, $id);
 
-
     $create = date_format(date_create($patient->getCreated()) , 'd M Y H:i:s');
 
     if (isset($_REQUEST['save_btn'])){
 
         //We will user filter_var to make sure that correct data has been entered
 
-        varDumber("JSJ");
         $firstname = filter_var(strtoupper($_REQUEST['firstname']), FILTER_SANITIZE_STRING);
         $surname =  filter_var(strtoupper($_REQUEST['surname']), FILTER_SANITIZE_STRING);
 

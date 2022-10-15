@@ -37,29 +37,7 @@ if(isset($_GET)){
 
     $Diagnosis_id = $_GET['id'];
 
-    try {
-
-        $select_stmt = $db->prepare("SELECT * FROM diagnosis WHERE Diagnosis_id = :Diagnosis_id");
-
-        $select_stmt->execute([':Diagnosis_id' => $Diagnosis_id]);
-
-        $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
-
-        $diagnosis = new Diagnosis(
-                $row['Diagnosis_id'],
-            $row["person_id"],
-            $row["title"],
-            $row["description"],
-            date('Y/m/d')
-        );
-
-
-    }catch (PDOException $e){
-
-        echo "There was a problem in executing the statement from the diagnosis table";
-
-    }
-
+    $diagnosis = viewDiagnosisById($db, $Diagnosis_id);
 }
 //Add Note implementation
 $noteInsert = null;
