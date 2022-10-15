@@ -6,14 +6,12 @@
     require_once './Includes/autoload.inc.php';
     require_once './varDump.php';
 
-
     //For security purposes the app won't allow a user to move to the next page if there are not Authorized
     if (session_start()) {
 
         $logged_user_name = ucfirst(strtolower( $_SESSION['user']['firstname']));
         $logged_user_surname = ucfirst(strtolower($_SESSION['user']['surname']));
         $logged_user_email = ucfirst(strtolower($_SESSION['user']['email']));
-
 
         if ($_SESSION['user'] == null){
             header('location : localhost/clinicare/login.php');
@@ -22,7 +20,6 @@
 
             /** @var TYPE_NAME $db */
             $patients = viewPatients($db);
-
 
         }
 
@@ -38,10 +35,6 @@
 
     }
 
-
-
-
-
 ?>
 
 <!doctype html>
@@ -51,69 +44,71 @@
     require_once 'htmlhead.php' ?>
 </head>
 <body>
-    <?php require_once "./Views/_header.php";?>
+<?php require_once "./Views/_header.php";?>
     <main>
         <section class = "admin-panel" >
+
             <div class="container">
-                <h3>Administrator - <?php echo $logged_user_name." ". $logged_user_surname?> </h3>
                 <form action="./patientList.php" method="post">
                     <div class="search-patient">
                         <input type="search" name="search-patient" id="search-patient" placeholder="search...">
                         <button type="submit" id="search-btn">search</button>
                     </div>
+
                 </form>
-                <a class="logout-btn" id="logout-btn" href="logout.php">Logout</a>
+                <a href="./register_patient.php" class="navbar__list-add">New Patient</a>
             </div>
-
         </section>
-        <?php
+        <div class="patient-list-table">
+            <?php
 
-        if($patients) {
-            echo <<< TABLEHEADER
-            <table class="patients-table">
-                <thead>
-                    <th>NAME</th>
-                    <th>SURNAME</th>
-                    <th>PATIENT NUMBER</th>
-                    <th>ACTIONS</th>
-                </thead>
-                <tbody>
-            TABLEHEADER;
-            $count = 0;
-            foreach ($patients as $patient) {
+            if($patients) {
+                echo <<< TABLEHEADER
+                <table class="patients-table">
+                    <thead>
+                        <th>NAME</th>
+                        <th>SURNAME</th>
+                        <th>PATIENT NUMBER</th>
+                        <th>ACTIONS</th>
+                    </thead>
+                    <tbody>
+                TABLEHEADER;
+                $count = 0;
+                foreach ($patients as $patient) {
 
-                $id = $patient->getId();
-                $name = ucwords(strtolower($patient->getFirstName()));
-                $surname = ucwords(strtolower($patient->getSurname()));
-                $patientNumber = $patient->getPatientNumber();
+                    $id = $patient->getId();
+                    $name = ucwords(strtolower($patient->getFirstName()));
+                    $surname = ucwords(strtolower($patient->getSurname()));
+                    $patientNumber = $patient->getPatientNumber();
 
-                echo <<< HTML
-                    <tr>
-                        <td>$name</td>
-                        <td>$surname</td>
-                        <td>$patientNumber</td>
-                        <td style="display: flex; padding: 10px">
-                            <a style="margin: 5px" class = "btn btn-primary" href="./ViewPatient.php?id=$id">View</a>
-                            <a style="margin: 5px" class = "btn btn-secondary" href="./update_patient.php?id=$id">Update</a>
-                            <a style="margin: 5px" class = "btn btn-danger" href="./deletePatient.php?id=$id">Delete</a>
-                        </td>
-                    </tr>
-                HTML;
-                $count++;
+                    echo <<< HTML
+                        <tr>
+                            <td>$name</td>
+                            <td>$surname</td>
+                            <td>$patientNumber</td>
+                            <td>
+                                <a class = "btn btn-primary" href="./ViewPatient.php?id=$id">View</a>
+                                <a class = "btn btn-secondary" href="./update_patient.php?id=$id">Update</a>
+                                <a class = "btn btn-danger" href="./deletePatient.php?id=$id">Delete</a>
+                            </td>
+                        </tr>
+                    HTML;
+                    $count++;
+
+                }
+
+                echo <<< CLOSETABLE
+                    </tbody>
+                    </table>
+                CLOSETABLE;
+                echo "<p>Rows - $count found</p>";
+            } else {
+
+                echo "<h5>Welcome to clinicare management system you can now start adding patients to the system</h5>";
 
             }
-
-            echo <<< CLOSETABLE
-                </tbody>
-                </table>
-            CLOSETABLE;
-            echo "<p>Rows - $count found</p>";
-        } else {
-
-            echo "<h5>Welcome to clinicare management system you can now start adding patients to the system</h5>";
-
-        }
-    ?>
+        ?>
+        </div>
     </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <?php include_once './Views/_footer.php'; ?>

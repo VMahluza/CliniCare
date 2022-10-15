@@ -5,30 +5,26 @@
     require_once './varDump.php';
 
 
+    if (session_start()) {
+
+        $logged_user_name = ucfirst(strtolower($_SESSION['user']['firstname']));
+        $logged_user_surname = ucfirst(strtolower($_SESSION['user']['surname']));
+        $logged_user_email = ucfirst(strtolower($_SESSION['user']['email']));
+    }else {
+
+        header("location:login.php");
+
+    }
 
     if ($_GET != null){
 
         $id = $_GET['id'];
 
         /** @var TYPE_NAME $db */
-        $select_stmt = $db->prepare("SELECT * FROM patient WHERE id = :id;");
 
-        $select_stmt->execute([':id' => $id]);
+        $patient = viewPatientById($db, $id);
 
-        $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
-
-
-            $patient = new Patient(
-
-                $row['id'],
-                $row['patientNumber'],
-                $row['firstname'],
-                $row['surname'],
-                $row['created']
-
-            );
-
-            $create = date_format(date_create($patient->getCreated()) , 'd M Y H:i:s');
+        $create = date_format(date_create($patient->getCreated()) , 'd M Y H:i:s');
 
     }
     ?>
@@ -39,18 +35,7 @@
     require_once 'htmlhead.php' ?>
 </head>
 <body>
-<header class="header">
-    <nav class="header__navbar container">
-        <div class="header__logo">
-            <img src="./public/images/logo.svg" alt="clinicare logo">
-        </div>
-        <ul class="navbar__list">
-            <li><a class="navbar__list-partient" href="./patientList.php">Patients</a></li>
-            <li><a class="navbar__list-add" href="./register_patient.php">Add New Patient</a></li>
-        </ul>
-        <a href="#">Contact IT support</a>
-    </nav>
-</header>
+<?php require_once "./Views/_header.php"?>
 <main class="main">
     <div class="patient">
         <form action="" method="post" class="container">

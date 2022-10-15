@@ -16,6 +16,9 @@
             break;
     }
     */
+
+
+
 ?>
 <header class="header">
     <nav class="header__navbar container">
@@ -23,10 +26,16 @@
             <img src="./public/images/logo.svg" alt="clinicare logo">
         </div>
         <ul class="navbar__list">
-            <li><a class="navbar__list-partient" href="./patientList.php">Patients</a></li>
-            <li><a class="navbar__list-add" href="./register_patient.php">Add New Patient</a></li>
+            <li><a class="navbar__list-partient" href="./patientList.php">
+                    <i class='fas fa-bed' style='font-size:24px;color:var(--blue)'></i> Patients
+                </a>
+            </li>
         </ul>
-        <a href="#">Contact IT support</a>
+        <a class="navbar__list-partient"  href="#"><i class="fa fa-user" style="font-size:24px;color:var(--blue)"></i> - <?php echo $logged_user_name." ". $logged_user_surname?></a>
+        <a class="logout-btn" id="logout-btn" href="logout.php">Logout
+            <i class='fas fa-sign-out-alt' style='font-size:24px'></i>
+            <span class="glyphicon glyphicon-log-out"></span>
+        </a>
     </nav>
 </header>
 

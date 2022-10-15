@@ -7,78 +7,56 @@ require_once './Includes/autoload.inc.php';
 //Controlling what happens when a user submitt a form
 //Request has both post and get
 
-
+$patient = null;
 
 if ($_GET != null){
 
     $id = $_GET['id'];
 
     /** @var TYPE_NAME $db */
-    $select_stmt = $db->prepare("SELECT * FROM patient WHERE id = :id;");
 
-    $select_stmt->execute([':id' => $id]);
+    $patient = viewPatientById($db, $id);
 
-    $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
-
-
-    $patient = new Patient(
-
-        $row['id'],
-        $row['patientNumber'],
-        $row['firstname'],
-        $row['surname'],
-        $row['created']
-
-    );
 
     $create = date_format(date_create($patient->getCreated()) , 'd M Y H:i:s');
 
-}
+    if (isset($_REQUEST['save_btn'])){
 
+        //We will user filter_var to make sure that correct data has been entered
 
-if (isset($_REQUEST['save_btn'])){
+        varDumber("JSJ");
+        $firstname = filter_var(strtoupper($_REQUEST['firstname']), FILTER_SANITIZE_STRING);
+        $surname =  filter_var(strtoupper($_REQUEST['surname']), FILTER_SANITIZE_STRING);
 
-    //We will user filter_var to make sure that correct data has been entered
+        $errorMsg = null;
+        //Error checking
+        if (empty($firstname)){
+            $errorMsg ['firstname'][] = 'First name field is required';
 
-    $firstname = filter_var(strtoupper($_REQUEST['firstname']), FILTER_SANITIZE_STRING);
-    $surname =  filter_var(strtoupper($_REQUEST['surname']), FILTER_SANITIZE_STRING);
-
-    $errorMsg = null;
-    //Error checking
-    if (empty($firstname)){
-        $errorMsg ['firstname'][] = 'First name field is required';
-
-    }
-    if (empty($surname)){
-        $errorMsg ['surname'][] = 'Last/Surname name field is required';
-    }
-
-    if (empty($errorMsg)){
-        try {
-
-            //UPDATE Customers
-            //SET ContactName='Alfred Schmidt', City='Hamburg';
-            $select_stmt = $db->prepare("UPDATE patient SET firstname = :firstname, surname=:surname;");
-
-            $update = $select_stmt->execute([':firstname' => $firstname,
-                ':surname'=>$surname]);
-
-            if($update === true){
-
-                //if the user registers here we want them to click something to confirm
-                header("Location: patientList.php");
-                exit;
-            }
-
-        }catch (PDOException $E){
-            $pdoErro = $E->getMessage();
-            echo "We have an error due to : $pdoErro";
+        }
+        if (empty($surname)){
+            $errorMsg ['surname'][] = 'Last/Surname name field is required';
         }
 
+        if (empty($errorMsg)){
+
+            //If the patient is updated the we redirect the user to patientList.php
+            $updated = updatePatient($db, $patient->getId(), $firstname ,$surname);
+
+            if ($patient){
+                header("location:patientList.php");
+            }
+
+
+        }
+
+
     }
 
-
 }
+
+
+
 
 ?>
 
@@ -97,7 +75,7 @@ if (isset($_REQUEST['save_btn'])){
 
 
 
-    <form action="./update_patient.php" method="post">
+    <form action="./update_patient.php?id=<?php echo $patient->getId()?>" method="post">
 
         <div class="mb-3">
             <label for="password" class="form-label">Patient Number</label>

@@ -1,83 +1,23 @@
 <?php
 
-    session_start();
-
     require_once './connection.php';
     require_once './Includes/autoload.inc.php';
     require_once './varDump.php';
 
-    $diagnosis = [];
+    /** @var TYPE_NAME $db */
+    $patient = viewPatientById($db, $_GET['id']);
 
-    try {
+    $diagnosis = viewDiagnosis($db);
 
-
-    //    $select_stmt->execute([':email' => $email]);
-    //
-    //    $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
-
-
-        /** @var TYPE_NAME $db */
-        $select_stmt = $db->prepare("SELECT id, patientNumber,firstname, surname, created FROM patient WHERE id = :id;");
-
-        if (isset($_GET['id'])) $select_stmt->execute([':id' => $_GET['id']]);
-
-        $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
-
-            $patient = new Patient(
-
-            $row['id'],
-            $row['patientNumber'],
-            $row['firstname'],
-            $row['surname'],
-            $row['created']
-
-            );
-
-
-
-
-    }catch (PDOException $E){
-        $pdoErro = $E->getMessage();
-        echo "We have an error due to : $pdoErro";
-    }
-
-    $diagnosis = [];
-
-    try {
-
-        $select_stmt = $db->prepare("SELECT * FROM diagnosis WHERE person_id = :id");
-        if (isset($_GET['id'])) $select_stmt->execute([':id' => $_GET['id']]);
-
-        $rows = $select_stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        foreach ($rows as $row){
-
-            $diagnosis[] = new Diagnosis(
-
-                $row["Diagnosis_id"],
-                $row["person_id"],
-                $row["title"],
-                $row["description"],
-                $row['date']
-
-            );
-
-        }
-
-    }catch (PDOException $e){
-
-        echo "Failed to execute from the database check issue on the Diagnosis table";
-
-    }
 
 ?>
 <div class="diagnosis-container">
     <div class = "diagnosis-search-bar" >
-        <div class="">
-            <input type="search" name="firstname" class="diagnosis-search-input" placeholder="Search diagnosis">
-            <a class="diagnosis-search-btn">Look</a>
+        <div class="search-patient">
+            <input type="search" name="search-patient" id="search-patient" placeholder="search...">
+            <button type="submit" id="search-btn">search</button>
         </div>
-        <a class="" href="./AddDiagnosis.php?id=<?php echo $patient->getId()?>">Add Diagnosis</a>
+        <a class="navbar__list-add" href="./AddDiagnosis.php?id=<?php echo $patient->getId()?>">Add Diagnosis</a>
     </div>
 
     <?php
@@ -100,7 +40,7 @@
                             <p class="diagnosis-card__description">$description</p>
                             <div class="diagnosis-card__CTAs">
                                 <a class = "diagnosis__CTA-view" href="./ViewDiagnosis.php?id=$Diagnosis_id">View</a>
-                                <a class = "diagnosis__CTA-update" href="./UpdatePatient.php?id=$Diagnosis_id">Update</a>
+                                <a class = "diagnosis__CTA-update" href="./Update_diagnosis.php?id= $person_id&diagnosis_id=$Diagnosis_id">Update</a>
                                 <a class ="diagnosis__CTA-delete" href="./deleteDiagnosis.php?diagnosis_id=$Diagnosis_id">Delete</a>
                             </div>
                         </div>
