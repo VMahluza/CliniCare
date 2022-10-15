@@ -39,26 +39,24 @@
 <main class="main">
     <div class="patient">
         <form action="" method="post" class="container">
-        <div class="patient-detail patient-number">
-            <label for="firstname" class="form-label">Patient Number</label>
-            <input type="number" disabled name="firstname" class="" value="<?php echo $patient->getPatientNumber()?>" >
-        </div>
-        <div class="patient-detail">
-            <label for="firstname" class="form-label">Name</label>
-            <input type="text" disabled name="firstname" class="" value="<?php echo ucwords(strtolower($patient->getFirstName()))?>">
-        </div>
+            <div class="patient-detail patient-number">
+                <label for="firstname" class="form-label">Patient Number</label>
+                <input type="number" disabled name="firstname" class="" value="<?php echo $patient->getPatientNumber()?>" >
+            </div>
+            <div class="patient-detail">
+                <label for="firstname" class="form-label">Name</label>
+                <input type="text" disabled name="firstname" class="" value="<?php echo ucwords(strtolower($patient->getFirstName()))?>">
+            </div>
 
-        <div class="patient-detail">
-            <label for="firstname" class="form-label">Surname</label>
-            <input type="text" disabled name="firstname" class="" value="<?php echo ucwords(strtolower($patient->getSurname()))?>">
-        </div>
+            <div class="patient-detail">
+                <label for="firstname" class="form-label">Surname</label>
+                <input type="text" disabled name="firstname" class="" value="<?php echo ucwords(strtolower($patient->getSurname()))?>">
+            </div>
 
-        <div class="patient-detail">
-            <label for="firstname" class="form-label">Admision date</label>
-            <input type="text" disabled name="firstname" class="" value="<?php echo $create ?>">
-        </div>
-
-        
+            <div class="patient-detail">
+                <label for="firstname" class="form-label">Admision date</label>
+                <input type="text" disabled name="firstname" class="" value="<?php echo $create ?>">
+            </div>
         </form>
 
         <?php require_once './DiagnosisList.php'?>

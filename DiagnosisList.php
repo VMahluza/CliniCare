@@ -40,7 +40,7 @@
                             <p class="diagnosis-card__description">$description</p>
                             <div class="diagnosis-card__CTAs">
                                 <a class = "diagnosis__CTA-view" href="./ViewDiagnosis.php?id=$Diagnosis_id">View</a>
-                                <a class = "diagnosis__CTA-update" href="./Update_diagnosis.php?id= $person_id&diagnosis_id=$Diagnosis_id">Update</a>
+                                <a class = "diagnosis__CTA-update" href="./Update_diagnosis.php?id=$person_id&diagnosis_id=$Diagnosis_id">Update</a>
                                 <a class ="diagnosis__CTA-delete" href="./deleteDiagnosis.php?diagnosis_id=$Diagnosis_id">Delete</a>
                             </div>
                         </div>

@@ -154,6 +154,33 @@ function searchPatients($db , $str):array{
     return $patients;
 }
 //========DIAGNOSIS=============================================
+function viewDiagnosisById($db, $id){
+
+    $diagnose = null;
+    try {
+
+        $select_stmt = $db->prepare("SELECT * FROM diagnosis WHERE Diagnosis_id = :Diagnosis_id");
+
+        $select_stmt->execute([':Diagnosis_id' => $id]);
+
+        $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
+
+        $diagnose = new Diagnosis(
+            $row['Diagnosis_id'],
+            $row["person_id"],
+            $row["title"],
+            $row["description"],
+            date('Y/m/d')
+        );
+
+    }catch (PDOException $e){
+
+        echo "There was a problem in executing the statement from the diagnosis table";
+
+    }
+
+    return $diagnose;
+}
 function updateDiagnosis($db, $id, $title ,$describtion):bool{
 
     $updateStatus = false;
