@@ -67,7 +67,6 @@ if (isset($_REQUEST['register_btn'])){
 
     }
 
-
 }
 
 ?>

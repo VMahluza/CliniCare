@@ -12,6 +12,7 @@ showPasswordBtns.forEach(btn => {
 })
 
 
+
 function toggleShowPassword(clickedBtnId) {
     let passwordInput
     if (clickedBtnId === 'show-password') {

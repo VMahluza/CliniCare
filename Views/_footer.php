@@ -16,6 +16,6 @@
         <p class="copyright"><small>&copy; CliniCare 2022.</small></p>
     </Footer>
 
-    <script src="../public/js/script.js"></script>
+    <script src="./public/js/script.js"></script>
 </body>
 </html>

@@ -5,6 +5,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+/*===================================SCROLLBAR====================================*/
+
+
 
 /*=================================== VARIABLES ===================================*/
 :root {
@@ -55,6 +58,7 @@ button {
 
 .main {
   margin-top: 10vh;
+
 }
 
 .section-title,
@@ -393,6 +397,10 @@ button {
   background-color: var(--dark-grayish-blue);
   color: var(--extra-light-purple);
   height: 10vh;
+  display: flex;
+  align-items: center;
+  margin-top: 10vh;
+  justify-content: space-between;
 }
 
 
