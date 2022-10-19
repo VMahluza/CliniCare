@@ -23,7 +23,7 @@
 <header class="header">
     <nav class="header__navbar container">
         <div class="header__logo">
-            <img src="./public/images/logo.svg" alt="clinicare logo">
+            <img style="width: 180px" src="./public/images/logo-er.svg" alt="clinicare logo">
         </div>
         <ul class="navbar__list">
             <li><a class="navbar__list-partient" href="./patientList.php">

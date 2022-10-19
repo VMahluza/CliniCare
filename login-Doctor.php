@@ -92,9 +92,14 @@ require_once 'htmlhead.php' ?>
         ?>
         <form class="split-screen__form" action="login.php" method="post">
 
-            <h1 class="section-title">Login to your account</h1>
-            <p class="section-text">or <a class="link-pink" href="register.php">Contact IT Support</a> to get your account registered</p>
+            <h1 class="section-title">Login to your Doctor</h1>
+            <p class="section-text">Not a Doctor? <br> <a class="link-pink" href="register.php">login in as Admin</a> or <a
+                       class="link-blue" href="#">contanct admin</a></p>
 
+            <div class="form-group">
+                <label for="drNumber" class="form-label">Dr's Number</label>
+                <input class="form-group__input" type="text" name="drNumber"  placeholder="">
+            </div>
 
             <div class="form-group">
                 <label for="email" class="form-label">Email address</label>

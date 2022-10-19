@@ -610,6 +610,8 @@ td {
   grid-area: view;
   background-color: var(--extra-light-purple);
   color: var(--dark-grayish-blue);
+  display: flex;
+  justify-content: center;
   padding: 0.5rem;
   border-radius: 5px;
 }
@@ -617,8 +619,11 @@ td {
   grid-area: update;
   background-color: var(--blue);
   color: var(--extra-light-purple);
+  display: flex;
+  justify-content: center;
   padding: 0.5rem;
   border-radius: 5px;
+  text-align: center;
 }
 .diagnosis__CTA-delete {
   grid-area: delete;

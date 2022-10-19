@@ -69,15 +69,13 @@ if ($_GET != null){
 </body>
 </html>
 
-<div class="container">
+<div class="diagnosis-container">
 
+    <form  action="./update_patient.php?id=<?php echo $patient->getId()?>" method="post">
 
-
-    <form action="./update_patient.php?id=<?php echo $patient->getId()?>" method="post">
-
-        <div class="mb-3">
+        <div class="form-group container">
             <label for="password" class="form-label">Patient Number</label>
-            <input type="text" name="patientNumber" value="<?php echo ucwords(strtolower($patient->getPatientNumber()))?>" readonly>
+            <input type="text" class="form-group__input" name="patientNumber" value="<?php echo ucwords(strtolower($patient->getPatientNumber()))?>" readonly>
         </div>
 
         <?php
@@ -87,9 +85,9 @@ if ($_GET != null){
             }
         }
         ?>
-        <div class="mb-3">
+        <div class="form-group container">
             <label for="firstname" class="form-label">First Name</label>
-            <input type="text" name="firstname" class="form-control" value="<?php echo ucwords(strtolower($patient->getFirstName()))?>" required>
+            <input type="text" class="form-group__input" name="firstname" class="form-control" value="<?php echo ucwords(strtolower($patient->getFirstName()))?>" required>
         </div>
 
         <?php
@@ -99,13 +97,14 @@ if ($_GET != null){
             }
         }
         ?>
-        <div class="mb-3">
+        <div class="form-group container">
             <label for="surname" class="form-label">Last Name</label>
-            <input type="text" name="surname" class="form-control" value="<?php echo ucwords(strtolower($patient->getSurname()))?>" required>
+            <input type="text" name="surname" class="form-group__input" value="<?php echo ucwords(strtolower($patient->getSurname()))?>" required>
         </div>
-        
-        <button type="submit" name="save_btn" class="btn btn-primary">Save</button>
-        <a href="./update_patient.php?id=<?php echo $patient->getId()?>">Cancel</a>
-        <a href="./patientList.php" class="btn btn-secondary">Back</a>
+        <div class="form-group container">
+            <button type="submit" name="save_btn" class="diagnosis__CTA-update">Save</button>
+            <a class="diagnosis__CTA-view" href="./update_patient.php?id=<?php echo $patient->getId()?>">Cancel</a>
+            <a class="diagnosis__CTA-delete" href="./patientList.php" class="btn btn-secondary">Back</a>
+        </div>
     </form>
 </div>

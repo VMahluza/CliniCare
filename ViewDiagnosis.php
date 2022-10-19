@@ -4,6 +4,16 @@ require_once './varDump.php';
 require_once './connection.php';
 require_once './Includes/autoload.inc.php';
 
+if (session_start()) {
+
+    $logged_user_name = ucfirst(strtolower($_SESSION['user']['firstname']));
+    $logged_user_surname = ucfirst(strtolower($_SESSION['user']['surname']));
+    $logged_user_email = ucfirst(strtolower($_SESSION['user']['email']));
+}else {
+
+    header("location:login.php");
+
+}
 
 try {
 
@@ -37,7 +47,12 @@ if(isset($_GET)){
 
     $Diagnosis_id = $_GET['id'];
 
+
+
     $diagnosis = viewDiagnosisById($db, $Diagnosis_id);
+    $patient = viewPatientById($db, $diagnosis->getPersonId());
+
+    $create = date_format(date_create($patient->getCreated()) , 'd M Y H:i:s');
 }
 //Add Note implementation
 $noteInsert = null;
@@ -45,8 +60,6 @@ $noteInsert = null;
 if (isset($_REQUEST['addnote_btn'])){
 
     //Validation on Notes
-
-
 
     if(!isset($_POST['note_discription']) || $_POST['note_discription'] == ""){
 
@@ -128,116 +141,125 @@ try {
 </head>
 
 <body>
-<div class="container">
+<?php require_once "./Views/_header.php"?>
+<main class="main">
+    <div class="container">
 
-<!--Patient-->
-    <form action="" method="post">
+        <!--Patient-->
+        <div class="patient">
+            <form action="" method="post" class="container">
+                <div class="patient-detail patient-number">
+                    <label for="firstname" class="form-label">Patient Number</label>
+                    <input type="number" disabled name="firstname" class="" value="<?php echo $patient->getPatientNumber()?>" >
+                </div>
+                <div class="patient-detail">
+                    <label for="firstname" class="form-label">Name</label>
+                    <input type="text" disabled name="firstname" class="" value="<?php echo ucwords(strtolower($patient->getFirstName()))?>">
+                </div>
 
-        <div class="mb-3" style="display: flex">
-            <label for="firstname" class="form-label">Patient Number</label>
-            <input type="number" disabled name="firstname" class="form-control" value="<?php echo $patient->getPatientNumber()?>" >
-        </div>
-        <div class="mb-3">
-            <label for="firstname" class="form-label">Name</label>
-            <input type="text" disabled name="firstname" class="form-control" value="<?php echo ucwords(strtolower($patient->getFirstName()))?>">
-        </div>
+                <div class="patient-detail">
+                    <label for="firstname" class="form-label">Surname</label>
+                    <input type="text" disabled name="firstname" class="" value="<?php echo ucwords(strtolower($patient->getSurname()))?>">
+                </div>
 
-        <div class="mb-3">
-            <label for="firstname" class="form-label">Surname</label>
-            <input type="text" disabled name="firstname" class="form-control" value="<?php echo ucwords(strtolower($patient->getSurname()))?>">
-        </div>
+                <div class="patient-detail">
+                    <label for="firstname" class="form-label">Admision date</label>
+                    <input type="text" disabled name="firstname" class="" value="<?php echo $create ?>">
+                </div>
+            </form>
+            <div class="diagnosis-container">
+                <div class="diagnosis-cards">
+                    <form class="form-group" style="width: 100%;" action="./register_patient.php" method="post">
+                            <h2>Diagnosis Information</h2>
+                            <div class="">
+                                <label for="surname" class="form-label">Title</label>
+                                <input type="text" readonly name="firstname" class="form-group__input" value="<?php echo $diagnosis->getTitle()?>" placeholder="">
+                            </div
+                            <div class="">
+                                <input type="text" readonly name="surname" class="form-group__input" value="<?php echo $diagnosis->getDescription()?>" placeholder="">
+                            </div>
+                    </form>
 
-        <div class="mb-3">
-            <label for="firstname" class="form-label">Admision date</label>
-            <input type="text" disabled name="firstname" class="form-control" value="<?php echo $patient->getCreated() ?>">
-        </div>
+                    <form action="./ViewDiagnosis.php?id=<?php echo $diagnosis->getDiagnosisId()?>" method="post">
+                        <div class="container">
 
-    </form>
-<!--Diagnosis about patient-->
-    <form action="./register_patient.php" method="post">
-        <div class="container">
-            <h5>Diagnosis Information</h5>
+                            <?php
 
+                            if (isset($noteErrorMsg)){
 
-            <div class="mb-3">
-                <input type="text" disabled name="firstname" class="form-control" value="<?php echo $diagnosis->getTitle()?>" placeholder="Title">
-            </div
-
-            <div class="mb-3">
-                <input type="text" disabled name="surname" class="form-control" value="<?php echo $diagnosis->getDescription()?>" placeholder="Description">
-            </div>
-            <div class="mb-3">
-                <input type="text" disabled name="surname" class="form-control" value="<?php echo $diagnosis->getDate() ?>" placeholder="Description">
-            </div>
-        </div>
-
-        <br><br>
-    </form>
-<!--Notes Notes about diagnosis-->
-
-    <form action="./ViewDiagnosis.php?id=<?php echo $diagnosis->getDiagnosisId()?>" method="post">
-        <div class="container">
-
-            <?php
-
-                if (isset($noteErrorMsg)){
-
-                    foreach ($noteErrorMsg as $erroMsg){
-                        echo <<< ERROR
+                                foreach ($noteErrorMsg as $erroMsg){
+                                    echo <<< ERROR
                             <div class="alert alert-danger" role="alert">
                                 $erroMsg
                             </div>
                         ERROR;
-                    }
+                                }
 
-                }
+                            }
 
-            ?>
-            <div class="mb-3">
-                <input type="text" name="note_discription" class="form-control"  placeholder="Type patient Notes Here...">
-            </div>
-            <button type="submit" name="addnote_btn" class="btn btn-primary">Add Note</button>
-        </div>
-    </form>
+                            ?>
+                            <div class="form-group">
+                                <div style="display: flex">
+                                    <input type="text" name="note_discription" class="form-group__input"  placeholder="Type patient Notes Here...">
+                                    <button type="submit" name="addnote_btn" class="diagnosis__CTA-update" style="width: 30%">Add Note</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <table style="margin-top: 20px" class = "table container" >
+                        <thead>
+                        <th>NOTE</th>
+                        <th>CREATED</th>
+                        <th>ACTIONS</th>
+                        </thead>
+                        <tbody>
 
-    <table class = "table">
-        <thead>
-        <th>NOTE</th>
-        <th>CREATED</th>
-        <th>ACTIONS</th>
-        </thead>
-        <tbody>
+                        <?php
 
-        <?php
+                        foreach ($notes as $note){
 
-        foreach ($notes as $note){
+                            $note_id = $note->getNotesId();
+                            $note_data = $note->getNotes();
+                            $created_date = $note->getCreated();
+                            $diagnosis_id = $note->getDiagnosisId();
 
-            $note_id = $note->getNotesId();
-            $note_data = $note->getNotes();
-            $created_date = $note->getCreated();
-            $diagnosis_id = $note->getDiagnosisId();
-
-            echo <<< HTML
+                            echo <<< HTML
                                 
                             <tr>
                                 <td>$note_data</td>
                                 <td>$created_date</td>
-                                <td style="display: flex; padding: 10px">
-                                <a href="./deleteNote.php?note_id=$note_id&diagnosis_id=$diagnosis_id" class = "btn btn-danger">Delete</a>
+                                <td>
+                                <a href="./deleteNote.php?note_id=$note_id&diagnosis_id=$diagnosis_id" class="diagnosis__CTA-delete">Delete</a>
                             </tr>
 
                         HTML;
 
-        }
+                        }
 
-        ?>
+                        ?>
 
-        </tbody>
-    </table>
+                        </tbody>
+                    </table>
+                    <div class="form-group container">
+                        <a href="./patientList.php" class="diagnosis__CTA-view">Cancel</a>
+                        <a href="./patientList.php" class="diagnosis__CTA-delete">Back</a>
+                    </div>
+                </div>
 
-    <a href="./patientList.php" class="btn btn-primary">Cancel</a>
-    <a href="./patientList.php" class="btn btn-secondary">Back</a>
-</div>
+            </div>
+
+        </div>
+
+        <!--Diagnosis about patient-->
+
+        <!--Notes Notes about diagnosis-->
+
+
+
+
+
+    </div>
+</main>
 </body>
 
 </html>

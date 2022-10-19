@@ -91,10 +91,10 @@ if (isset($_REQUEST['save_btn'])){
                         <input type="text" name="description" class="form-group__input" value="<?php echo $Diagnosis->getDescription()?>" >
                     </div>
 
-                    <button type="submit" name="save_btn" class="btn btn-primary">Save</button>
-                    <div class="form-group container" style="display: flex;">
-                        <a href="./Update_diagnosis.php?id=<?php echo $diagnosis->getPersonId()?>>&diagnosis_id=<?php echo $Diagnosis_id; ?>" class="">Cancel</a>
-                        <a href="./ViewPatient.php?id=<?php echo $Diagnosis->getPersonId()?>" class="">Back</a>
+                    <div class="form-group container">
+                        <button style="" type="submit" name="save_btn" class="diagnosis__CTA-update">Save</button>
+                        <a class="diagnosis__CTA-view" href="./Update_diagnosis.php?id=<?php echo $diagnosis->getPersonId()?>>&diagnosis_id=<?php echo $Diagnosis_id; ?>" class="">Cancel</a>
+                        <a class="diagnosis__CTA-delete" href="./ViewPatient.php?id=<?php echo $Diagnosis->getPersonId()?>" class="">Back</a>
                     </div>
                 </form>
             </div>

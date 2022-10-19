@@ -1,110 +1,128 @@
 <?php
-    require_once './connection.php';
-    require_once './Includes/autoload.inc.php';
 
-    $user = null;
-    //If the the user is done registering we redirect the user to the Login page
-    session_start();
-    if (isset($_SESSION['user'])) { header("location:login.php" );}
+require_once './connection.php';
+require_once './Includes/autoload.inc.php';
 
-    //Controlling what happens when a user submitt a form
-    //Request has both post and get
-    if (isset($_REQUEST['register_btn'])){
+//$user = null;
+//If the the user is done registering we redirect the user to the Login page
+session_start();
+if (isset($_SESSION['user'])) { header("location:login.php" );}
 
-        //We will user filter_var to make sure that correct data has been entered
+//Controlling what happens when a user submitt a form
+//Request has both post and get
+if (isset($_REQUEST['register_btn'])){
 
-        $firstname = filter_var(strtoupper($_REQUEST['firstname']), FILTER_SANITIZE_STRING);
-        $surname =  filter_var(strtoupper($_REQUEST['surname']), FILTER_SANITIZE_STRING);
-        $email =  filter_var(strtoupper($_REQUEST["email"]),FILTER_SANITIZE_EMAIL );
-        $password =  strip_tags($_REQUEST["password"]);//strip tags making sure that no html code is writed in the password
-        $role = $_REQUEST["role"];
+    //We will user filter_var to make sure that correct data has been entered
+    $firstname = filter_var(strtoupper($_REQUEST['firstname']), FILTER_SANITIZE_STRING);
+    $surname =  filter_var(strtoupper($_REQUEST['surname']), FILTER_SANITIZE_STRING);
+    $email =  filter_var(strtoupper($_REQUEST["email"]),FILTER_SANITIZE_EMAIL );
+    $password =  strip_tags($_REQUEST["password"]);//strip tags making sure that no html code is writed in the password
+    $role = $_REQUEST["role"];
 
-        $role_id = match($role){
-            'DR' => User::DR,
-            'ADMIN' => User::ADMIN
-        };
+    //This only support new php versions
+    // $role_id = match($role){
+    //     'DR' => User::DR,
+    //     'ADMIN' => User::ADMIN
+    // };
+    var_dump($_REQUEST);
+    $role_id = 0;
 
-        //Error checking
-        if (empty($firstname)){
-            $errorMsg [0][] = 'First name field is required';
-        }
-        if (empty($surname)){
-            $errorMsg [1][] = 'Last/Surname name field is required';
-        }
-        if (empty($email)){
-            $errorMsg [2][] = 'email field is required';
-        }
-        if (empty($password)){
-            $errorMsg [3][] = 'password field is required';
-        }
-        if (strlen($password) < 6){
-            $errorMsg [3][] = 'Password must have atleast 6 characters';
-        }
-        if ($password != $_REQUEST["repassword"]){
-            $errorMsg[4][] = 'Password mismatch !';
-        }
+    switch($role){
 
-        if (empty($errorMsg)){
-            try {
+        case "":
+            $role_id = 0;
+            break;
 
-                $select_stmt = $db->prepare("SELECT firstname, email FROM user WHERE email = :email");
-                $select_stmt->execute([':email' => $email]);
-
-                $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
-
-
-                    if ($row['email']  === $email && isset($row['email'])){
-
-                        $errorMsg [2][] = 'email already exist, log in instead <a class="register" href="login.php">Login Instead</a>';
-                        echo "SEKJEKJRWKRJKWR";
-                    }else {
-
-                        echo "SEKJEKJRWKRJKWR";
-                        //We do not want an accesseble password to our app security is vital
-                        $hash_password = password_hash($password, PASSWORD_DEFAULT);
-
-                        //We want to also know when was the user created
-                        $created = new DateTime();
-
-                        $created = $created->format('y-m-d H:i:s');
-                        //INSERT INTO `user` (`id`, `firstname`, `surname`, `email`, `password`, `role_id`, `created`)
-                        //            VALUES (NULL, 'Admin', 'Mahluza', 'admin@com', 'admin', '1', '2022-10-02 14:10:05.000000')
-                        $insert_stmt = $db->prepare("INSERT INTO user (firstname, surname, email, password, role_id, created) 
-                                                            VALUES (:firstname, :surname, :email, :password, :role_id, :created)");
-
-                        //Redirecting the user to the page they are supposed to be after registering
-                        $insert = $insert_stmt->execute(
-                            [
-                                ':firstname' => $firstname,
-                                ':surname' => $surname,
-                                ':email' => $email,
-                                ':password' => $hash_password,
-                                ':role_id' => $role_id,
-                                ':created' => $created
-                            ]
-                        );
-
-                        if($insert === true){
-
-                            //if the user registers here we want them to click something to confirm
-                            header("Location: login.php?msg=".urlencode('Click the varification email'));
-                            exit;
-                        }
-
-                    }
-
-
-            }catch (PDOException $E){
-                $pdoErro = $E->getMessage();
-                echo "We have an error due to : $pdoErro";
-            }
-
-        }
-
-        //After every validation we send this data to the user object
-        $user = new User($firstname, $surname, $email, $password, $role_id);
+        case "DR":
+            $role_id = 1;
+            break;
+        case "ADMIN":
+            $role_id = 2;
+            break;
 
     }
+
+    //Error checking
+    if (empty($firstname)){
+        $errorMsg [0][] = 'First name field is required';
+    }
+    if (empty($surname)){
+        $errorMsg [1][] = 'Last/Surname name field is required';
+    }
+    if (empty($email)){
+        $errorMsg [2][] = 'email field is required';
+    }
+    if (empty($password)){
+        $errorMsg [3][] = 'password field is required';
+    }
+    if (strlen($password) < 6){
+        $errorMsg [3][] = 'Password must have atleast 6 characters';
+    }
+    if ($password != $_REQUEST["repassword"]){
+        $errorMsg[4][] = 'Password mismatch !';
+    }
+
+    if (empty($errorMsg)){
+        try {
+
+            $select_stmt = $db->prepare("SELECT firstname, email FROM user WHERE email = :email");
+            $select_stmt->execute([':email' => $email]);
+
+            $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
+
+
+            if ($row['email']  === $email && isset($row['email'])){
+
+                $errorMsg [2][] = 'email already exist, log in instead <a class="register" href="login.php">Login Instead</a>';
+                echo "SEKJEKJRWKRJKWR";
+            }else {
+
+                echo "SEKJEKJRWKRJKWR";
+                //We do not want an accesseble password to our app security is vital
+                $hash_password = password_hash($password, PASSWORD_DEFAULT);
+
+                //We want to also know when was the user created
+                $created = new DateTime();
+
+                $created = $created->format('y-m-d H:i:s');
+                //INSERT INTO `user` (`id`, `firstname`, `surname`, `email`, `password`, `role_id`, `created`)
+                //            VALUES (NULL, 'Admin', 'Mahluza', 'admin@com', 'admin', '1', '2022-10-02 14:10:05.000000')
+                $insert_stmt = $db->prepare("INSERT INTO user (firstname, surname, email, password, role_id, created) 
+                                                            VALUES (:firstname, :surname, :email, :password, :role_id, :created)");
+
+                //Redirecting the user to the page they are supposed to be after registering
+                $insert = $insert_stmt->execute(
+                    [
+                        ':firstname' => $firstname,
+                        ':surname' => $surname,
+                        ':email' => $email,
+                        ':password' => $hash_password,
+                        ':role_id' => $role_id,
+                        ':created' => $created
+                    ]
+                );
+
+                if($insert === true){
+
+                    //if the user registers here we want them to click something to confirm
+                    header("Location: login.php?msg=".urlencode('Click the varification email'));
+                    exit;
+                }
+
+            }
+
+
+        }catch (PDOException $E){
+            $pdoErro = $E->getMessage();
+            echo "We have an error due to : $pdoErro";
+        }
+
+    }
+
+    //After every validation we send this data to the user object
+    $user = new User($firstname, $surname, $email, $password, $role_id);
+
+}
 
 ?>
 <html lang="en">
@@ -181,7 +199,7 @@
                         <img class="password-show" src="./public/images/eye.svg" alt="show password button" id="show-password">
                     </div>
                 </div>
-<!--                REPEAT PASSWORD-->
+                <!--                REPEAT PASSWORD-->
                 <?php
                 if(isset($errorMsg[4])){
                     foreach ($errorMsg[4] as $error){
@@ -196,7 +214,7 @@
                         <img class="password-show" src="./public/images/eye.svg" alt="show password button" id="show-repeat-password">
                     </div>
                 </div>
-<!--                select Role-->
+                <!--                select Role-->
                 <div class="form-group">
                     <label for="repassword" class="form-label">Select Role</label>
                     <select class="role-selection" name="role" id="role">

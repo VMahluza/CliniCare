@@ -3,8 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/CliniCare/Models/Notes.php</file>
-            <file>file:/C:/xampp/htdocs/CliniCare/Models/Diagnosis.php</file>
+            <file>file:/C:/xampp/htdocs/CliniCare/Models/Role.php</file>
+            <file>file:/C:/xampp/htdocs/CliniCare/index.php</file>
+            <file>file:/C:/xampp/htdocs/CliniCare/connection.php</file>
         </group>
     </open-files>
 </project-private>
